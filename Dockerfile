@@ -1,7 +1,7 @@
 FROM debian:wheezy
 MAINTAINER yigal@publysher.nl
 
-# Install pygments (for syntax highlighting) 
+# Install pygments (for syntax highlighting)
 RUN apt-get -qq update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends python-pygments git ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
@@ -28,3 +28,6 @@ ONBUILD RUN hugo -d /usr/share/nginx/html/
 # By default, serve site
 ENV HUGO_BASE_URL http://localhost:1313
 CMD hugo server -b ${HUGO_BASE_URL} --bind=0.0.0.0
+
+# Add Curl
+RUN apt-get update -y -qq; apt-get install curl -qq -y
